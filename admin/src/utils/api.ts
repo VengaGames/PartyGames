@@ -1,7 +1,7 @@
 const API_URL = "http://192.168.1.75:3000";
 
 class API {
-  get(path) {
+  get(path: string) {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${API_URL}${path}`, {
@@ -19,7 +19,7 @@ class API {
     });
   }
 
-  put(path, body) {
+  put(path: string, body: string) {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${API_URL}${path}`, {
@@ -38,7 +38,7 @@ class API {
     });
   }
 
-  post(path, body) {
+  post(path: string, body: string) {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${API_URL}${path}`, {
@@ -57,7 +57,7 @@ class API {
     });
   }
 
-  delete(path) {
+  delete(path: string) {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${API_URL}${path}`, {
