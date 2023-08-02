@@ -8,7 +8,7 @@ const Schema = new mongoose.Schema(
     playerNb: { type: Number, required: true },
     description: { type: String, required: true },
     image: { type: String },
-    type: { type: String, enums: ["card", "tarot", "board", "dice", "other"], required: true, description: "If the game is with cards, board, dices, etc..." },
+    type: { type: String, enums: ["card", "tarot", "board", "dice", "other", "nothing"], required: true, description: "If the game is with cards, board, dices, etc..." },
   },
   {
     timestamps: {

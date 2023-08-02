@@ -19,7 +19,7 @@ class API {
     });
   }
 
-  put(path: string, body: string) {
+  put(path: string, body: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${API_URL}${path}`, {

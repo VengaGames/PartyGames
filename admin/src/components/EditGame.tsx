@@ -1,14 +1,30 @@
-import React, { useState } from "react";
-import { Game, GameFormProps } from "../types/types";
+import React, { useEffect, useState } from "react";
+import { Game, EditGameProps, GameResponse } from "../types/types";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../utils/api";
+import toast from "react-hot-toast";
 
-const GameForm: React.FC<GameFormProps> = () => {
+const EditGame: React.FC<EditGameProps> = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<Game>({
     title: "",
     playerNb: 0,
     description: "",
     image: "",
-    type: "",
+    type: "card",
   });
+
+  const getGame = async () => {
+    const res: GameResponse = await api.get(`/game/${id}`);
+    if (!res.ok) return toast.error(res?.error || "An error occurred");
+    setFormData(res.data);
+  };
+
+  useEffect(() => {
+    if (!id) return;
+    getGame();
+  }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -18,13 +34,19 @@ const GameForm: React.FC<GameFormProps> = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    const res: GameResponse = await api.put(`/game/${id}`, formData);
+    if (!res.ok) return toast.error(res?.error || "An error occurred");
+    toast.success("Game updated");
+    navigate("/");
   };
 
+  if (!formData?.title) return <div>Loading...</div>;
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 p-5">
+      <h1 className="text-2xl font-semibold">Edit game</h1>
       <div className="flex flex-row w-full gap-5 ">
         <div>
           <label htmlFor="title" className="block text-gray-700">
@@ -45,7 +67,7 @@ const GameForm: React.FC<GameFormProps> = () => {
         <label htmlFor="description" className="block text-gray-700">
           Description:
         </label>
-        <textarea id="description" name="description" value={formData.description} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full" />
+        <textarea id="description" name="description" value={formData.description} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full h-fit" />
       </div>
 
       <div className="flex flex-row w-full gap-5 ">
@@ -54,6 +76,8 @@ const GameForm: React.FC<GameFormProps> = () => {
             Image URL:
           </label>
           <input type="text" id="image" name="image" value={formData.image} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
+          {/* Display the image if there is one */}
+          {formData.image && <img src={formData.image} alt={formData.title} className="mb-2 w-20" />}
         </div>
         <div>
           <label htmlFor="type" className="block text-gray-700">
@@ -64,8 +88,8 @@ const GameForm: React.FC<GameFormProps> = () => {
             <option value="card">Card</option>
             <option value="tarot">Tarot</option>
             <option value="board">Board</option>
-            <option value="nothing">Nothing</option>
             <option value="dice">Dice</option>
+            <option value="nothing">Nothing</option>
             <option value="other">Other</option>
           </select>
         </div>
@@ -73,11 +97,11 @@ const GameForm: React.FC<GameFormProps> = () => {
 
       <div>
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
-          Create a new one
+          Update
         </button>
       </div>
     </form>
   );
 };
 
-export default GameForm;
+export default EditGame;
