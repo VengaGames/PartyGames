@@ -9,7 +9,7 @@ const EditGame: React.FC<EditGameProps> = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Game>({
     title: "",
-    playerNb: 0,
+    playerNb: "",
     description: "",
     image: "",
     type: "card",
@@ -59,7 +59,7 @@ const EditGame: React.FC<EditGameProps> = () => {
           <label htmlFor="playerNb" className="block text-gray-700">
             Number max of Players:
           </label>
-          <input type="number" id="playerNb" name="playerNb" value={formData.playerNb} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full" />
+          <input type="text" id="playerNb" name="playerNb" value={formData.playerNb} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full" />
         </div>
       </div>
 

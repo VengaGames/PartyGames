@@ -38,7 +38,7 @@ class API {
     });
   }
 
-  post(path: string, body: string) {
+  post(path: string, body: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${API_URL}${path}`, {

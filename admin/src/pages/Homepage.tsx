@@ -11,7 +11,6 @@ function Homepage() {
     const res: GamesResponse = await api.get("/game/all");
     if (!res.ok) return;
     setGames(res.data);
-    console.log(res.data[0]);
   };
 
   useEffect(() => {
@@ -21,7 +20,7 @@ function Homepage() {
   return (
     <div className="p-5">
       <div className="bg-green-500 text-center">Admin panel</div>
-      <GameForm />
+      <GameForm onComplete={getGames} />
       <div className="mt-5 text-center">Games list</div>
       <GameGrid games={games} />
     </div>

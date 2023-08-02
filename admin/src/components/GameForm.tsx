@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Game, GameFormProps } from "../types/types";
+import api from "../utils/api";
+import toast from "react-hot-toast";
 
-const GameForm: React.FC<GameFormProps> = () => {
+const GameForm: React.FC<GameFormProps> = ({ onComplete }) => {
   const [formData, setFormData] = useState<Game>({
     title: "",
-    playerNb: 0,
+    playerNb: "",
     description: "",
     image: "",
     type: "",
@@ -18,9 +20,19 @@ const GameForm: React.FC<GameFormProps> = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    const res = await api.post("/game", formData);
+    if (!res.ok) return toast.error(res?.error || "An error occurred");
+    toast.success("Game created");
+    setFormData({
+      title: "",
+      playerNb: "",
+      description: "",
+      image: "",
+      type: "",
+    });
+    onComplete();
   };
 
   return (
@@ -37,7 +49,7 @@ const GameForm: React.FC<GameFormProps> = () => {
           <label htmlFor="playerNb" className="block text-gray-700">
             Number max of Players:
           </label>
-          <input type="number" id="playerNb" name="playerNb" value={formData.playerNb} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full" />
+          <input type="text" id="playerNb" name="playerNb" value={formData.playerNb} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full" />
         </div>
       </div>
 
@@ -54,6 +66,7 @@ const GameForm: React.FC<GameFormProps> = () => {
             Image URL:
           </label>
           <input type="text" id="image" name="image" value={formData.image} onChange={handleChange} className="mt-1 p-2 border rounded-md w-full" />
+          {formData.image && <img src={formData.image} alt={formData.title} className="mt-2 w-20" />}
         </div>
         <div>
           <label htmlFor="type" className="block text-gray-700">
@@ -61,6 +74,9 @@ const GameForm: React.FC<GameFormProps> = () => {
           </label>
           {/* Create a select with the previous values */}
           <select id="type" name="type" value={formData.type} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full">
+            <option disabled value="">
+              Select a type
+            </option>
             <option value="card">Card</option>
             <option value="tarot">Tarot</option>
             <option value="board">Board</option>

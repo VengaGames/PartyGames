@@ -5,7 +5,7 @@ const MODELNAME = "Game";
 const Schema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    playerNb: { type: Number, required: true },
+    playerNb: { type: String, required: true },
     description: { type: String, required: true },
     image: { type: String },
     type: { type: String, enums: ["card", "tarot", "board", "dice", "other", "nothing"], required: true, description: "If the game is with cards, board, dices, etc..." },

@@ -1,7 +1,7 @@
 export interface Game {
-  _id?: number;
+  _id?: string;
   title: string;
-  playerNb: number;
+  playerNb: string;
   description: string;
   image: string;
   type: string;
@@ -18,7 +18,9 @@ export interface GameResponse {
   error?: string;
 }
 
-export interface GameFormProps {}
+export interface GameFormProps {
+  onComplete: () => void;
+}
 
 export interface EditGameProps {}
 

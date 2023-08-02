@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
     return res.status(201).json({ ok: true, data: game });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ ok: false, error });
+    return res.status(500).json({ ok: false, error: error.message || "Error during creation" });
   }
 });
 
