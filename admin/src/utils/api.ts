@@ -1,7 +1,7 @@
 const API_URL = "http://192.168.1.75:3000";
 
 class API {
-  get(path: string) {
+  get(path: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${API_URL}${path}`, {

@@ -15,6 +15,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/all", async (req, res) => {
+  try {
+    const games = await Game.find({});
+    const total = games.length;
+    return res.status(200).json({ ok: true, data: games, total });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ ok: false, error });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const game = await Game.findById(req.params.id);
