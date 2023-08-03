@@ -19,9 +19,9 @@ export default function App() {
   };
 
   return (
-    <View className="bg-orange-500 h-fit flex-col items-center">
-      <ScrollView className="w-full">
-        <Text className="mt-20">Nombre de Jeux : {total}</Text>
+    <View className="bg-[#0D1117] text-white h-fit flex-col items-center">
+      <ScrollView className="w-full text-white">
+        <Text className="text-white">Nombre total de Jeux : {total}</Text>
         <Pressable className="bg-blue-500 p-2 rounded-lg m-2" onPress={getGame}>
           <Text className="text-white">Nouveau Jeu</Text>
         </Pressable>
