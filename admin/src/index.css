@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+td {
+  @apply border;
+}
+
+li {
+  /* make a small black dot on the left side */
+  @apply list-disc list-inside;
+}
+
+ul {
+  @apply ml-4;
+}

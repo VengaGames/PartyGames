@@ -3,6 +3,8 @@ import { Game, EditGameProps, GameResponse } from "../types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../utils/api";
 import toast from "react-hot-toast";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const EditGame: React.FC<EditGameProps> = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,6 +70,8 @@ const EditGame: React.FC<EditGameProps> = () => {
           Description:
         </label>
         <textarea id="description" name="description" value={formData.description} onChange={handleChange} required className="mt-1 p-2 border rounded-md w-full h-fit" />
+        {/* Display the description if there is one */}
+        {formData.description && <ReactMarkdown children={formData.description} remarkPlugins={[remarkGfm]} />}
       </div>
 
       <div className="flex flex-row w-full gap-5 ">
