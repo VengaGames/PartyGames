@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import api from "../utils/api";
-import GameForm from "../components/GameForm";
-import { Game, GamesResponse } from "../types/types";
-import GameGrid from "../components/GameGrid";
+import React, { useEffect, useState } from 'react';
+import GameForm from '../components/GameForm';
+import GameGrid from '../components/GameGrid';
+import { Game, GamesResponse } from '../types/types';
+import api from '../utils/api';
 
 function Homepage() {
   const [games, setGames] = useState<Game[]>([]);
 
   const getGames = async (): Promise<void> => {
-    const res: GamesResponse = await api.get("/game/all");
+    const res: GamesResponse = await api.get<GamesResponse>('/game/all');
     if (!res.ok) return;
     setGames(res.data);
   };

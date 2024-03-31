@@ -1,81 +1,51 @@
-const API_URL = "http://192.168.1.75:3000";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable class-methods-use-this */
+const API_URL: string = 'http://192.168.1.75:3000';
 
 class API {
-  get(path: string): Promise<any> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${API_URL}${path}`, {
-          mode: "cors",
-          credentials: "include",
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-
-        const res = await response.json();
-        resolve(res);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  get<T>(path: string): Promise<T> {
+    return fetch(`${API_URL}${path}`, {
+      mode: 'cors',
+      credentials: 'include',
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    }).then((res: Response) => res.json())
+      .then((res: T) => res);
   }
 
-  put(path: string, body: any): Promise<any> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${API_URL}${path}`, {
-          mode: "cors",
-          method: "PUT",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: typeof body === "string" ? body : JSON.stringify(body),
-        });
-
-        const res = await response.json();
-        resolve(res);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  put<T>(path: string, body: any): Promise<T> {
+    return fetch(`${API_URL}${path}`, {
+      mode: 'cors',
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: typeof body === 'string' ? body : JSON.stringify(body),
+    }).then((res: Response) => res.json())
+      .then((res: Response) => res as T);
   }
 
-  post(path: string, body: any): Promise<any> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${API_URL}${path}`, {
-          mode: "cors",
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: typeof body === "string" ? body : JSON.stringify(body),
-        });
-
-        const res = await response.json();
-        resolve(res);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  post<T>(path: string, body: any): Promise<T> {
+    return fetch(`${API_URL}${path}`, {
+      mode: 'cors',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: typeof body === 'string' ? body : JSON.stringify(body),
+    }).then((res: Response) => res.json())
+      .then((res: Response) => res as T);
   }
 
-  delete(path: string) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${API_URL}${path}`, {
-          mode: "cors",
-          method: "DELETE",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-        });
-
-        const res = await response.json();
-        resolve(res);
-      } catch (e) {
-        reject(e);
-      }
-    });
+  delete<T>(path: string): Promise<T> {
+    return fetch(`${API_URL}${path}`, {
+      mode: 'cors',
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+    }).then((res: Response) => res.json())
+      .then((res: Response) => res as T);
   }
 }
 
-const api = new API();
+const api: API = new API();
 
 export default api;

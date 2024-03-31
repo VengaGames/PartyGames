@@ -1,29 +1,32 @@
-export interface Game {
-  _id?: string;
+export type Game = {
+  id: string;
   title: string;
   playerNb: string;
   description: string;
   image: string;
   type: string;
-}
+};
 
-export interface GamesResponse {
+export type GameFormType = {
+  title: string;
+  playerNb: string;
+  description: string;
+  image: string;
+  type: string;
+};
+
+export type GamesResponse = {
   ok: boolean;
   data: Game[];
-}
+};
 
-export interface GameResponse {
+export type GameResponse = {
   ok: boolean;
   data: Game;
   error?: string;
-}
+};
 
-export interface GameFormProps {
-  onComplete: () => void;
-}
-
-export interface EditGameProps {}
-
-export interface GameGridProps {
-  games: Game[];
-}
+export type ApiError = {
+  error: string;
+  ok: boolean;
+};
