@@ -4,6 +4,10 @@ import { MONGO_URI } from './config';
 
 const connectToDb = async () => {
   try {
+    mongoose.set('toJSON', {
+      versionKey: false,
+      virtuals: true,
+    });
     await mongoose.connect(MONGO_URI, {});
     console.log('✅ - Connected to MongoDB');
   } catch (error) {

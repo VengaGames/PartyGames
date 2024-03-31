@@ -23,10 +23,7 @@ const gameSchema: Schema = new Schema<Game>(
     },
   },
 );
-gameSchema.set('toJSON', {
-  versionKey: false,
-  virtuals: true,
-});
+
 const GameModel: Model<Game> = model<Game>(MODEL_NAME, gameSchema);
 
 export default GameModel;
