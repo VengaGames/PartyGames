@@ -1,7 +1,7 @@
-import { model, Model, Schema } from 'mongoose';
+import { Document, model, Model, Schema } from 'mongoose';
 import { Game } from '../types/types';
 
-const MODEL_NAME: string = 'Game';
+const MODEL_NAME: string = 'games';
 
 const gameSchema: Schema = new Schema<Game>(
   {
@@ -23,7 +23,10 @@ const gameSchema: Schema = new Schema<Game>(
     },
   },
 );
-
+gameSchema.set('toJSON', {
+  versionKey: false,
+  virtuals: true,
+});
 const GameModel: Model<Game> = model<Game>(MODEL_NAME, gameSchema);
 
 export default GameModel;

@@ -8,7 +8,7 @@ function Homepage() {
   const [games, setGames] = useState<Game[]>([]);
 
   const getGames = async (): Promise<void> => {
-    const res: GamesResponse = await api.get<GamesResponse>('/game/all');
+    const res: GamesResponse = await api.get<GamesResponse>('/games');
     if (!res.ok) return;
     setGames(res.data);
   };

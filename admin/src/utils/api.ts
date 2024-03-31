@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable class-methods-use-this */
-const API_URL: string = 'http://192.168.1.75:3000';
+
+import { API_URL } from '../config';
 
 class API {
   get<T>(path: string): Promise<T> {
@@ -9,7 +10,8 @@ class API {
       credentials: 'include',
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-    }).then((res: Response) => res.json())
+    })
+      .then((res: Response) => res.json())
       .then((res: T) => res);
   }
 
@@ -20,7 +22,8 @@ class API {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: typeof body === 'string' ? body : JSON.stringify(body),
-    }).then((res: Response) => res.json())
+    })
+      .then((res: Response) => res.json())
       .then((res: Response) => res as T);
   }
 
@@ -31,7 +34,8 @@ class API {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: typeof body === 'string' ? body : JSON.stringify(body),
-    }).then((res: Response) => res.json())
+    })
+      .then((res: Response) => res.json())
       .then((res: Response) => res as T);
   }
 
@@ -41,7 +45,8 @@ class API {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-    }).then((res: Response) => res.json())
+    })
+      .then((res: Response) => res.json())
       .then((res: Response) => res as T);
   }
 }
