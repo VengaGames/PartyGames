@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import EditGame from './components/EditGame';
 import Homepage from './pages/Homepage';
 
-function App() {
+export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
@@ -11,5 +11,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;
